@@ -343,4 +343,25 @@ export default function TeacherClassroom(){
                     }catch(e){ console.error(e); alert('Failed to post announcement'); }
                   }}>Post</button>
                 </div>
-              </
+              </div>
+              <div style={{marginTop:12}}>
+                {announcements.length === 0 && <div className="muted">No announcements yet</div>}
+                {announcements.map(an => (
+                  <div key={an._id || an.id} className="card p-2 mb-2">
+                    <div style={{display:'flex',justifyContent:'space-between'}}>
+                      <div>
+                        <div style={{fontWeight:600}}>{an.user ? an.user.name : 'Teacher'}</div>
+                        <div style={{fontSize:13,color:'#666'}}>{new Date(an.createdAt).toLocaleString()}</div>
+                        <div style={{marginTop:6}}>{an.message}</div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
