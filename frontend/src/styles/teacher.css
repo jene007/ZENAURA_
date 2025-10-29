@@ -1,0 +1,57 @@
+/* Teacher dashboard and classroom styles */
+:root{
+  --primary:#007bff;
+  --bg:#f7fbff;
+  --muted:#6c757d;
+  --card-radius:12px;
+}
+body,html,#root{height:100%;}
+.app-container{font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); color:#222}
+.brand-title{font-weight:700;color:var(--primary)}
+.content{padding-top:24px;padding-bottom:48px}
+.card{border-radius:var(--card-radius);box-shadow:0 6px 18px rgba(22, 35, 64, 0.06)}
+.clickable:hover{transform:translateY(-4px);transition:all .18s ease}
+.metric-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+@media(max-width:900px){.metric-grid{grid-template-columns:repeat(2,1fr)}}
+
+.big-icon-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:18px}
+@media(max-width:900px){.big-icon-grid{grid-template-columns:repeat(2,1fr)}}
+.big-tile{background:#fff;border-radius:12px;padding:18px;display:flex;align-items:center;gap:12px;cursor:pointer;border:1px solid rgba(2,6,23,0.04)}
+.big-tile .tile-icon{width:64px;height:64px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(0,123,255,0.12),rgba(0,123,255,0.06));font-size:28px}
+.big-tile .tile-body{flex:1}
+.big-tile .tile-title{font-weight:700;font-size:16px}
+.big-tile .tile-sub{color:var(--muted);font-size:13px}
+.metric-card{padding:18px;color:#fff;border-radius:12px;display:flex;align-items:center;gap:12px}
+.metric-card .icon{width:48px;height:48px;display:flex;align-items:center;justify-content:center;border-radius:10px;background:rgba(255,255,255,0.12)}
+.metric-card .body{flex:1}
+.metric-primary{background:linear-gradient(135deg, #0069d9 0%, #0088ff 100%)}
+.metric-accent{background:linear-gradient(135deg,#6f42c1 0%,#007bff 100%)}
+.metric-olive{background:linear-gradient(135deg,#20c997 0%,#0abf8f 100%)}
+.metric-warning{background:linear-gradient(135deg,#ff7b00 0%,#ffb347 100%)}
+.classroom-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:12px}
+.classroom-card{padding:14px;border-radius:12px;background:#fff}
+.classroom-card h5{margin:0;font-size:16px}
+.small-muted{font-size:13px;color:var(--muted)}
+.recent-activity{max-height:280px;overflow:auto}
+.tab-buttons .btn{border-radius:8px}
+.modal-backdrop{position:fixed;inset:0;/* soft light overlay for modals */background:rgba(255,255,255,0.92) !important;z-index:1060}
+.modal-dialog{position:fixed !important;left:50% !important;top:50% !important;transform:translate(-50%,-50%) !important;max-width:820px;width:100%;padding:16px;box-sizing:border-box}
+.modal-content{max-width:680px;width:100%;background:#ffffff;border-radius:12px;box-shadow:0 12px 36px rgba(2,6,23,0.10);border:1px solid rgba(2,6,23,0.04);color:#111 !important;padding:1rem}
+.modal-content h5, .modal-content h4, .modal-content h3, .modal-content p, .modal-content label, .modal-content input, .modal-content button{color:inherit}
+
+/* Ensure modal centers on small screens and is scrollable if tall */
+@media (max-height:700px){
+  .modal-backdrop{align-items:flex-start;padding-top:40px}
+  .modal-dialog{padding-top:0;padding-bottom:40px}
+  .modal-content{max-height:calc(100vh - 120px);overflow:auto}
+}
+.form-row{display:flex;gap:8px}
+.form-row input, .form-row textarea{flex:1}
+.students-table{width:100%;border-collapse:collapse}
+.students-table th, .students-table td{padding:8px;border-bottom:1px solid #eee}
+.progress-pill{background:#eef6ff;padding:4px 8px;border-radius:999px;color:var(--primary);font-weight:600}
+.footer-actions{display:flex;gap:8px}
+/* utility */
+.muted{color:var(--muted)}
+.p-3{padding:1rem}
+
