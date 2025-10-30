@@ -21,6 +21,9 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/', (req, res) => res.json({ ok: true, msg: 'ZenAura backend' }));
 
+// Provide a small helpful response for GET /api (useful for health checks or browser requests)
+app.get('/api', (req, res) => res.json({ ok: true, msg: 'ZenAura backend API root. See /api/auth, /api/users, /api/classrooms, etc.' }));
+
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/classrooms', classroomRoutes);
