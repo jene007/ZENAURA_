@@ -3,6 +3,16 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
+// Create the app early so we can configure proxy/trust settings before
+// requiring route modules that may apply middleware relying on req.ip
+const app = express();
+
+// When running behind a proxy (Render, Netlify functions, Heroku, etc.)
+// Express needs to trust the proxy in order for downstream middleware
+// (like express-rate-limit) to correctly read the client IP address.
+// This must be set before route modules that register rate-limited routes are required.
+app.set('trust proxy', 1);
+
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/users');
 const classroomRoutes = require('./routes/classrooms');
@@ -12,7 +22,6 @@ const adminRoutes = require('./routes/admin');
 const teacherRoutes = require('./routes/teacher');
 const studentRoutes = require('./routes/student');
 
-const app = express();
 app.use(cors());
 app.use(express.json());
 
