@@ -8,4 +8,4 @@ Install
 2. npm install
 3. npm start
 
-The frontend expects the backend API at `http://localhost:5000/api` by default.
+The frontend expects the backend API at `https://zenaura-01.onrender.com/api` by default (change `VITE_API_URL` or `REACT_APP_API_URL` to override).
