@@ -1,12 +1,14 @@
 // Scheduler: unlock assignments when unlockAt passes and create reminders for due assignments
 const cron = require('node-cron');
+const mongoose = require('mongoose');
 const Assignment = require('../models/Assignment');
 const Classroom = require('../models/Classroom');
 const Notification = require('../models/Notification');
 const User = require('../models/User');
 
-// Runs every minute (for demo). In production, run less frequently (e.g., hourly).
-cron.schedule('* * * * *', async () => {
+let started = false;
+
+async function runJobs() {
   try {
     const now = new Date();
 
@@ -47,8 +49,25 @@ cron.schedule('* * * * *', async () => {
     }
 
   } catch (err) {
-    console.error('Scheduler error:', err.message);
+    console.error('Scheduler error:', err && err.message ? err.message : err);
   }
-});
+}
 
-module.exports = cron;
+function startScheduler() {
+  if (started) return;
+  started = true;
+  // Runs every minute (for demo). In production, run less frequently (e.g., hourly).
+  cron.schedule('* * * * *', runJobs);
+  console.log('Scheduler started');
+}
+
+// Start scheduler only after mongoose is connected to avoid buffering timeouts
+if (mongoose.connection && mongoose.connection.readyState === 1) {
+  startScheduler();
+} else {
+  mongoose.connection.once('connected', () => {
+    startScheduler();
+  });
+}
+
+module.exports = { startScheduler, runJobs };
