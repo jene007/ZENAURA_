@@ -1,0 +1,34 @@
+# render.yaml - Render.com infra-as-code for Zenaura
+# This file defines a Web Service for the Node backend and a Static Site for the Vite frontend.
+#
+# NOTES:
+# - Do NOT place secrets here. Set MONGO_URI, JWT_SECRET, OPENAI_API_KEY, and VITE_API_URL in
+#   the Render dashboard (Environment > Environment Variables) for each service.
+# - Render will run the build/start commands relative to the repo root. The commands below
+#   `cd` into the correct subfolders (backend/frontend).
+
+services:
+  - type: web
+    name: zenaura-backend
+    env: node
+    branch: main
+    plan: free
+    buildCommand: cd backend && npm ci
+    startCommand: cd backend && npm start
+    envVars:
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: OPENAI_API_KEY
+        sync: false
+
+staticSites:
+  - name: zenaura-frontend
+    branch: main
+    plan: free
+    buildCommand: cd frontend && npm ci && npm run build
+    publishPath: frontend/dist
+    envVars:
+      - key: VITE_API_URL
+        sync: false
