@@ -29,8 +29,8 @@ staticSites:
     plan: free
   # Ensure devDependencies (vite) are installed during build. Render may set NPM_CONFIG_PRODUCTION=true,
   # which prevents devDependencies from being installed. We explicitly disable that for the build step.
-  # Use npx to invoke Vite directly which avoids relying on executable permission bits on the vite binary.
-  buildCommand: cd frontend && NPM_CONFIG_PRODUCTION=false npm ci && npx vite build
+  # Use the Vite CLI via Node directly to avoid permission or missing-npx issues in the build environment.
+  buildCommand: cd frontend && NPM_CONFIG_PRODUCTION=false npm ci && node ./node_modules/vite/bin/vite.js build
     publishPath: frontend/dist
     envVars:
       - key: VITE_API_URL
