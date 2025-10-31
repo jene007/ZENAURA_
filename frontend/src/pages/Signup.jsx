@@ -32,8 +32,8 @@ export default function Signup() {
       const reg = await API.post('/auth/register', { name, email, password, role });
       const token = reg.data?.token;
       if (token) {
-        // persist and auto-login, then redirect to role dashboard
-        await login(token);
+        // persist and auto-login, pass returned user into login so protected routes don't redirect
+        await login(token, reg.data?.user || null);
         setSuccess(true);
         setMsg('Account created — Redirecting...');
         setTimeout(() => {

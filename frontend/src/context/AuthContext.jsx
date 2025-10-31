@@ -24,15 +24,23 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
-  const login = useCallback(async token => {
+  // login(token, initialUser?) - if initialUser is provided we use it immediately
+  // This avoids a race where components navigate before the /auth/me check completes
+  const login = useCallback(async (token, initialUser = null) => {
     if (!token) return;
     localStorage.setItem('zenaura_token', token);
     setAuthToken(token);
+    if (initialUser) {
+      setUser(initialUser);
+      return initialUser;
+    }
     try {
       const res = await API.get('/auth/me');
       setUser(res.data.user);
+      return res.data.user;
     } catch (err) {
       setUser(null);
+      return null;
     }
   }, []);
 

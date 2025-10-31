@@ -54,10 +54,11 @@ export default function Login() {
     console.debug('Login submit', { email, role });
     try {
       const res = await API.post('/auth/login', { email, password });
-      const { token, user } = res.data;
-      // persist token if remember checked
-      if (remember) localStorage.setItem('zenaura_token', token);
-      await login(token);
+  const { token, user } = res.data;
+  // persist token if remember checked
+  if (remember) localStorage.setItem('zenaura_token', token);
+  // pass the returned user into login so the context is set immediately
+  await login(token, user);
   // route by role from server response
   const r = user?.role || role || 'student';
   if (r === 'admin') nav('/admin/dashboard');
